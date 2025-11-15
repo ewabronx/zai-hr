@@ -91,3 +91,59 @@ button {
 .table tr.selected {
   background-color: #ffeeba; /* delikatny żółty */
 }
+
+.login-section {
+  margin-bottom: 20px;
+}
+
+.login-form {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  max-width: 300px;
+}
+
+.login-form input {
+  padding: 4px 6px;
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+}
+
+.admin-panel {
+  margin-top: 30px;
+  padding: 16px;
+  border: 1px solid #ddd;
+}
+
+.admin-forms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1 1 250px;
+  min-width: 250px;
+}
+
+.admin-form input,
+.admin-form textarea,
+.admin-form select {
+  padding: 4px 6px;
+}
+
+@media print {
+  .login-section,
+  .admin-panel {
+    display: none !important;
+  }
+}
+
