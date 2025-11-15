@@ -147,3 +147,19 @@ button {
   }
 }
 
+.series-visibility {
+  margin-bottom: 16px;
+}
+
+.series-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.series-checkboxes label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+

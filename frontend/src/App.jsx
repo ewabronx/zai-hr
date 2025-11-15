@@ -21,12 +21,29 @@ function App() {
     !!localStorage.getItem("access_token")
   );
   const [loginError, setLoginError] = useState("");
+  const [visibleSeriesIds, setVisibleSeriesIds] = useState([]);
+
 
 
   // Pobierz serie na start
   useEffect(() => {
-    fetchSeries().then(setSeries).catch(console.error);
+    fetchSeries()
+      .then((data) => {
+        setSeries(data);
+        setVisibleSeriesIds(data.map((s) => s.id)); // wszystkie serie widoczne
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Nie udało się pobrać serii");
+      });
   }, []);
+
+  const toggleVisibleSeries = (id) => {
+    setVisibleSeriesIds((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    );
+  };
+
 
   const loadData = async () => {
     setLoading(true);
@@ -76,6 +93,12 @@ function App() {
     setLoggedIn(false);
     alert("Wylogowano.");
   };
+
+  const filteredMeasurements =
+    visibleSeriesIds.length === 0
+      ? measurements
+      : measurements.filter((m) => visibleSeriesIds.includes(m.series));
+
 
 
   return (
@@ -152,11 +175,31 @@ function App() {
         </button>
       </section>
 
+      <section className="series-visibility">
+        <h3>Serie na wykresie</h3>
+        {series.length === 0 ? (
+          <p>Brak serii.</p>
+        ) : (
+          <div className="series-checkboxes">
+            {series.map((s) => (
+              <label key={s.id}>
+                <input
+                  type="checkbox"
+                  checked={visibleSeriesIds.includes(s.id)}
+                  onChange={() => toggleVisibleSeries(s.id)}
+                />
+                {s.name}
+              </label>
+            ))}
+          </div>
+        )}
+      </section>
+
       <main className="content">
         <div className="chart-container">
           <h2>Wykres tętna</h2>
           <HeartRateChart
-            measurements={measurements}
+            measurements={filteredMeasurements}
             seriesList={series}
             selectedMeasurement={selectedMeasurement}
           />
@@ -165,7 +208,7 @@ function App() {
         <div className="table-container">
           <h2>Lista pomiarów</h2>
           <MeasurementsTable
-            measurements={measurements}
+            measurements={filteredMeasurements}
             onSelect={setSelectedMeasurement}
             selectedMeasurement={selectedMeasurement}
           />
