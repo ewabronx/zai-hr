@@ -55,36 +55,40 @@ function HeartRateChart({ measurements, seriesList, selectedMeasurement }) {
         {uniqueSeriesIds.map((id) => {
           const s = seriesMap.get(id);
           const dataKey = `series_${id}`;
+          const color = s?.color || "#8884d8";
+
           return (
             <Line
-            key={id}
-            type="monotone"
-            dataKey={dataKey}
-            name={s ? s.name : `Seria ${id}`}
-            dot={(props) => {
-                const { cx, cy, payload, stroke } = props;
+              key={id}
+              type="monotone"
+              dataKey={dataKey}
+              name={s ? s.name : `Seria ${id}`}
+              stroke={color}
+              dot={(props) => {
+                const { cx, cy, payload } = props;
                 const pointId = payload[`${dataKey}_id`];
 
                 const isSelected =
-                selectedMeasurement && pointId === selectedMeasurement.id;
+                  selectedMeasurement && pointId === selectedMeasurement.id;
 
                 const r = isSelected ? 6 : 2;
                 const strokeWidth = isSelected ? 2 : 1;
 
                 return (
-                <circle
+                  <circle
                     cx={cx}
                     cy={cy}
                     r={r}
-                    stroke={stroke}
+                    stroke={color}
                     strokeWidth={strokeWidth}
-                    fill={stroke}
-                />
-        );
-      }}
-    />
+                    fill={color}
+                  />
+                );
+              }}
+            />
           );
         })}
+
       </LineChart>
     </ResponsiveContainer>
   );
