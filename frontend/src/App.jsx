@@ -131,38 +131,57 @@ function App() {
 
   return (
     <div className="app">
+      <header className="app-header">
       <h1>Analiza tętna podczas treningu</h1>
-            <section className="login-section">
-        {loggedIn ? (
-          <div>
-            <p>Zalogowano (token w pamięci przeglądarki).</p>
-            <button onClick={handleLogout}>Wyloguj</button>
+<section className="login-section">
+  {loggedIn ? (
+    <div className="login-status">
+      <div className="login-status-info">
+        <div className="login-avatar">A</div>
+        <div>
+          <div className="login-status-title">Zalogowano jako administrator</div>
+          <div className="login-status-subtitle">
+            Możesz edytować serie i pomiary w panelu poniżej.
           </div>
-        ) : (
-          <form onSubmit={handleLogin} className="login-form">
-            <h3>Logowanie admina</h3>
-            <label>
-              Login:
-              <input
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
-            </label>
-            <label>
-              Hasło:
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </label>
-            <button type="submit">Zaloguj</button>
-            {loginError && <p className="error">{loginError}</p>}
-          </form>
-        )}
-      </section>
+        </div>
+      </div>
+      <button onClick={handleLogout}>Wyloguj</button>
+    </div>
+  ) : (
+    <form onSubmit={handleLogin} className="login-form">
+      <h3>Panel logowania administratora</h3>
+      <p className="login-form-subtitle">
+        Zaloguj się, aby zarządzać seriami treningowymi i pomiarami tętna.
+      </p>
+
+      <label>
+        Login
+        <input
+          placeholder="np. admin"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+      </label>
+
+      <label>
+        Hasło
+        <input
+          type="password"
+          placeholder="••••••••"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+      </label>
+
+      <button type="submit">Zaloguj</button>
+
+      {loginError && <p className="error login-error">{loginError}</p>}
+    </form>
+  )}
+</section>
+
 
       <section className="filters">
         <div>
@@ -286,7 +305,7 @@ function App() {
           </div>
         )}
       </section>
-
+      </header>
 
       {loggedIn && (
         <section>
@@ -299,8 +318,6 @@ function App() {
           />
         </section>
       )}
-
-
     </div>
   );
 
