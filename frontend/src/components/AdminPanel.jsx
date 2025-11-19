@@ -157,6 +157,17 @@ const submitMeasurement = async (e) => {
   }
 };
 
+  const resetMeasurementForm = () => {
+    setEditingMeasurementId(null);
+    setMeasurementForm({
+      seriesId: "",
+      heart_rate: "",
+      timestamp: "",
+    });
+    setMeasurementErrors([]);
+  };
+
+
 
 
     const toLocalInputValue = (isoString) => {
@@ -306,8 +317,15 @@ const submitMeasurement = async (e) => {
       ))}
     </ul>
   )}
-
-
+  {editingMeasurementId && (
+    <button
+      type="button"
+      className="secondary-button"
+      onClick={resetMeasurementForm}
+    >
+      Dodaj nowy pomiar
+    </button>
+  )}
 
 </form>
 
