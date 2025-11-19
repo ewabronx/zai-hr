@@ -41,4 +41,10 @@ export async function createMeasurement(payload) {
   return res.data;
 }
 
+export async function updateMeasurement(id, payload) {
+  const res = await api.put(`/measurements/${id}/`, payload);
+  return res.data;
+}
+
+
 export default api;

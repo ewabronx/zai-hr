@@ -219,11 +219,9 @@ function App() {
         <section>
           <AdminPanel
             series={series}
+            selectedMeasurement={selectedMeasurement}
             onDataChanged={() => {
-              // po dodaniu serii/pomiaru – odśwież serie i dane
               fetchSeries().then(setSeries);
-              // możesz też automatycznie odświeżyć pomiary:
-              // loadData();
             }}
           />
         </section>
