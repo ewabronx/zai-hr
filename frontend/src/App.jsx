@@ -99,6 +99,34 @@ function App() {
       ? measurements
       : measurements.filter((m) => visibleSeriesIds.includes(m.series));
 
+  const computeStats = (measurements) => {
+  if (!measurements || measurements.length === 0) {
+    return null;
+  }
+
+  const hrValues = measurements.map((m) => m.heart_rate);
+  const count = hrValues.length;
+  const min = Math.min(...hrValues);
+  const max = Math.max(...hrValues);
+  const avg = hrValues.reduce((a, b) => a + b, 0) / count;
+
+  // strefy intensywności
+  const zones = {
+    easy: hrValues.filter((v) => v < 120).length,
+    cardio: hrValues.filter((v) => v >= 120 && v < 160).length,
+    intense: hrValues.filter((v) => v >= 160).length,
+  };
+
+  return {
+    count,
+    min,
+    max,
+    avg,
+    zones,
+    };
+  };
+
+  const stats = computeStats(filteredMeasurements);
 
 
   return (
@@ -214,6 +242,51 @@ function App() {
           />
         </div>
       </main>
+
+      <section className="stats">
+        <h2>Statystyki</h2>
+
+        {!stats ? (
+          <p>Brak danych do analizy.</p>
+        ) : (
+          <div className="stats-grid">
+            <div className="stat-card">
+              <strong>Liczba pomiarów:</strong> {stats.count}
+            </div>
+
+            <div className="stat-card">
+              <strong>Średnie tętno:</strong> {stats.avg.toFixed(1)} BPM
+            </div>
+
+            <div className="stat-card">
+              <strong>Minimalne tętno:</strong> {stats.min} BPM
+            </div>
+
+            <div className="stat-card">
+              <strong>Maksymalne tętno:</strong> {stats.max} BPM
+            </div>
+
+            <div className="stat-card">
+              <strong>Strefy intensywności:</strong>
+              <ul>
+                <li>
+                   120 BPM (lekko):{" "}
+                  {((stats.zones.easy / stats.count) * 100).toFixed(1)}%
+                </li>
+                <li>
+                  120–159 BPM (cardio):{" "}
+                  {((stats.zones.cardio / stats.count) * 100).toFixed(1)}%
+                </li>
+                <li>
+                  ≥ 160 BPM (wysoka intensywność):{" "}
+                  {((stats.zones.intense / stats.count) * 100).toFixed(1)}%
+                </li>
+              </ul>
+            </div>
+          </div>
+        )}
+      </section>
+
 
       {loggedIn && (
         <section>

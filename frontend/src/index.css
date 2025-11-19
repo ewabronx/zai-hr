@@ -174,3 +174,31 @@ button {
   list-style-type: disc;
 }
 
+.stats {
+  margin-top: 30px;
+}
+
+.stats-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.stat-card {
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  min-width: 200px;
+  background: #fafafa;
+}
+
+.stat-card ul {
+  margin: 6px 0 0 16px;
+  padding: 0;
+}
+
+.stat-card li {
+  font-size: 0.9rem;
+}
+
+
