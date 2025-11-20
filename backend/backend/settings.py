@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,10 +26,8 @@ SECRET_KEY = 'django-insecure-9$q-*@t2k^b=2oy-)5qhsp8*&bs-j_w$e(aph!7_5=z$vhaq#)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*", ".up.railway.app"]
 
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -81,19 +80,33 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'zai_hr',
+#         'USER': 'zai_user',
+#         'PASSWORD': 'MOCNE_HASLO',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#         'OPTIONS': {
+#             'charset': 'utf8mb4',
+#         },
+#     }
+# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'zai_hr',
-        'USER': 'zai_user',
-        'PASSWORD': 'MOCNE_HASLO',
-        'HOST': 'localhost',
-        'PORT': '3306',
-        'OPTIONS': {
-            'charset': 'utf8mb4',
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": os.environ.get("MYSQLDATABASE", "zai_hr"),
+        "USER": os.environ.get("MYSQLUSER", "zai_user"),
+        "PASSWORD": os.environ.get("MYSQLPASSWORD", ""),
+        "HOST": os.environ.get("MYSQLHOST", "localhost"),
+        "PORT": os.environ.get("MYSQLPORT", "3306"),
+        "OPTIONS": {
+            "charset": "utf8mb4",
         },
     }
 }
+
 
 
 
@@ -141,6 +154,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Vite (frontend)
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
