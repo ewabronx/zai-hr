@@ -98,7 +98,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": os.environ.get("MYSQLDATABASE", "zai_hr"),
         "USER": os.environ.get("MYSQLUSER", "zai_user"),
-        "PASSWORD": os.environ.get("MYSQLPASSWORD", ""),
+        "PASSWORD": os.environ.get("MYSQLPASSWORD", "MOCNE_HASLO"),
         "HOST": os.environ.get("MYSQLHOST", "localhost"),
         "PORT": os.environ.get("MYSQLPORT", "3306"),
         "OPTIONS": {
