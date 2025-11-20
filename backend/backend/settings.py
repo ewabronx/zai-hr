@@ -93,19 +93,34 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 #         },
 #     }
 # }
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.mysql",
+#         "NAME": os.environ.get("MYSQLDATABASE", "zai_hr"),
+#         "USER": os.environ.get("MYSQLUSER", "zai_user"),
+#         "PASSWORD": os.environ.get("MYSQLPASSWORD", "MOCNE_HASLO"),
+#         "HOST": os.environ.get("MYSQLHOST", "localhost"),
+#         "PORT": os.environ.get("MYSQLPORT", "3306"),
+#         "OPTIONS": {
+#             "charset": "utf8mb4",
+#         },
+#     }
+# }
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": os.environ.get("MYSQLDATABASE", "zai_hr"),
-        "USER": os.environ.get("MYSQLUSER", "zai_user"),
-        "PASSWORD": os.environ.get("MYSQLPASSWORD", "MOCNE_HASLO"),
-        "HOST": os.environ.get("MYSQLHOST", "localhost"),
-        "PORT": os.environ.get("MYSQLPORT", "3306"),
+        "NAME": os.environ["DB_NAME"],
+        "USER": os.environ["DB_USER"],
+        "PASSWORD": os.environ["DB_PASSWORD"],
+        "HOST": os.environ["DB_HOST"],
+        "PORT": os.environ.get("DB_PORT", "3306"),
         "OPTIONS": {
             "charset": "utf8mb4",
         },
     }
 }
+
 
 
 
