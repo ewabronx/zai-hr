@@ -184,6 +184,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Vite (frontend)
+    "https://zai-hr-production-7a01.up.railway.app",
+    "https://zai-hr-frontend.up.railway.app",   
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
