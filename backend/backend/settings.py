@@ -28,7 +28,12 @@ SECRET_KEY = 'django-insecure-9$q-*@t2k^b=2oy-)5qhsp8*&bs-j_w$e(aph!7_5=z$vhaq#)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*", ".up.railway.app"]
+# ALLOWED_HOSTS = ["*", ".up.railway.app"]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "zai-hr-production-7a01.up.railway.app",
+]
 
 
 INSTALLED_APPS = [
@@ -201,3 +206,6 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://zai-hr-production-7a01.up.railway.app",
+]
